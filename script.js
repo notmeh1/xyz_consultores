@@ -1,40 +1,55 @@
 "use strict";
 
 class Cliente {
-    constructor(nombre, impuesto) {
-        this.nombre = nombre
-        this.impuesto = impuesto
-    }
+  constructor(nombre, impuesto) {
+    this._nombre = nombre;
+    this._impuesto = impuesto;
+  }
+
+  get nombre() {
+    return this.nombre;
+  }
+
+  set nombre(_nuevoNombre) {
+    this._nombre = _nuevoNombre;
+  }
+
+  calcularImpuesto() {
+    return (
+      ((this._impuesto.monto_bruto_anual - this._impuesto.deducciones) * 0.21)
+    );
+  }
 }
-    Object.defineProperty(this, "nombre", {
-        get: function () {
-        return nombre;
-        },
-        set: function (newNombre) {
-        nombre = newNombre;
-        },
-    });
 
 class Impuestos {
-    constructor(monto_bruto_anual, deducciones) {
-        this.monto_bruto_anual = monto_bruto_anual
-        this.deducciones = deducciones
-    }
-    calcularImpuesto() {
-        return ((this.monto_bruto_anual - this.deducciones) * 0.21)
-    }
+  constructor(monto_bruto_anual, deducciones) {
+    this._monto_bruto_anual = monto_bruto_anual;
+    this._deducciones = deducciones;
+  }
+
+  get monto_bruto_anual() {
+    return this._monto_bruto_anual;
+  }
+
+  set monto_bruto_anual(_newMonto_Bruto) {
+    this._monto_bruto_anual = _newMonto_Bruto;
+  }
+
+  get deducciones() {
+    return this._deducciones;
+  }
+
+  set deducciones(_newDeducciones) {
+    this._deducciones = _newDeducciones;
+  }
 }
 
-const impuestosDeLuis = new Impuestos(100, 5);
-const clienteLuis = new Cliente("Luis", impuestosDeLuis);
+const impuestosPedro = new Impuestos(23443, 343);
+const clientePedro = new Cliente("Pedro", impuestosPedro);
+const impuestosPablo = new Impuestos(2115456, 3652);
+const clientePablo = new Cliente("Pablo", impuestosPablo);
 
-const impuestosDeAngela = new Impuestos(300, 15);
-const clienteAngela = new Cliente("Angela", impuestosDeAngela);
+const calculoPedro = clientePedro.calcularImpuesto();
+const calculoPablo = clientePablo.calcularImpuesto();
 
-const calculoDeLuis = clienteLuis.calcularImpuesto();
-const calculoDeAngela = clienteAngela.calcularImpuesto();
-
-console.log({ calculoDeLuis, calculoDeAngela });
-
-
-
+console.log({ calculoPedro, calculoPablo });
